@@ -2,9 +2,6 @@
   "name": "react-underflag",
   "version": "1.0.0",
   "description": "React component to underflag",
-  "author": "Diego Souza",
-  "license": "MIT",
-  "repository": "dieg0s0uza/react-underflag",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.tsx",
@@ -23,9 +20,24 @@
     "predeploy": "cd example && npm install && npm run build",
     "deploy": "gh-pages -d example/build"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dieg0s0uza/underflag.git"
+  },
+  "keywords": [
+    "feature flag",
+    "feature toggle",
+    "remote config"
+  ],
+  "author": "Diego Souza",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dieg0s0uza/underflag/issues"
+  },
+  "homepage": "https://github.com/dieg0s0uza/underflag#readme",
   "peerDependencies": {
     "react": "^16.0.0",
-    "underflag": "^1.1.2"
+    "underflag": "^1.2.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
