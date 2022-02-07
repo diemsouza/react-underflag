@@ -1,7 +1,7 @@
 {
   "name": "react-underflag",
   "version": "1.0.0",
-  "description": "React component to underflag",
+  "description": "React component for underflag",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.tsx",
@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dieg0s0uza/underflag.git"
+    "url": "git+https://github.com/dieg0s0uza/react-underflag.git"
   },
   "keywords": [
     "feature flag",
@@ -32,9 +32,9 @@
   "author": "Diego Souza",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dieg0s0uza/underflag/issues"
+    "url": "https://github.com/dieg0s0uza/react-underflag/issues"
   },
-  "homepage": "https://github.com/dieg0s0uza/underflag#readme",
+  "homepage": "https://github.com/dieg0s0uza/react-underflag#readme",
   "peerDependencies": {
     "react": "^16.0.0",
     "underflag": "^1.2.0"
