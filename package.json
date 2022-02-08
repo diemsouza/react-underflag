@@ -1,6 +1,6 @@
 {
   "name": "react-underflag",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "React component for underflag",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
