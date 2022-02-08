@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode, useContext } from 'react'
-import { IDataProvider, Underflag, JsonDataProvider, JSONData } from 'underflag'
+import { IDataProvider, Underflag, JSONData } from 'underflag'
 
 type UnderflagState = {
   underflag: Underflag
@@ -35,4 +35,4 @@ const useUnderflag = () => {
   return context
 }
 
-export { UnderflagProvider, useUnderflag, UnderflagContext, JsonDataProvider }
+export { UnderflagProvider, useUnderflag, UnderflagContext }

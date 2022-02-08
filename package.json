@@ -27,7 +27,8 @@
   "keywords": [
     "feature flag",
     "feature toggle",
-    "remote config"
+    "remote config",
+    "react"
   ],
   "author": "Diego Souza",
   "license": "MIT",
@@ -68,10 +69,12 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.1",
-    "typescript": "^3.7.5",
-    "underflag": "^1.2.0"
+    "typescript": "^3.7.5"
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "underflag": "^1.3.0"
+  }
 }
