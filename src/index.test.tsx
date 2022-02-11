@@ -1,5 +1,5 @@
 import React from 'react'
-import { act, render } from "@testing-library/react"
+import { render, screen } from "@testing-library/react"
 import { UnderflagProvider, useUnderflag } from '.'
 
 const App = () => {
@@ -33,14 +33,10 @@ const Features = () => {
 
 describe("React Underflag Component", () => {
   it("should render feature test_a when it is on", async () => {
-    let component: any
-    await act(async () => {
-      component = render(
-        <App>
-          <Features />
-        </App>
-      );
-      expect(component.getByText(/Feature A/)).toBeTruthy();
-    });
+    render(
+      <App />
+    )
+
+    expect(screen.getByText(/Feature A/)).toBeTruthy();
   });
 });
