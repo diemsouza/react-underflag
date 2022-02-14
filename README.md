@@ -56,6 +56,25 @@ const MyComponent = () => {
 export default MyComponent
 ```
 
+_Or using the useFeature hook_
+
+```tsx
+import React from 'react'
+import { useUnderflag } from 'react-underflag'
+import 'react-underflag/dist/index.css'
+
+const MyComponent = () => {
+  const [feature] = useFeature(['feature-name'])
+
+  return <>
+    <h1>Features</h1>
+    {feature?.isOn() && <h3>Feature</h3>}
+  </>
+}
+
+export default MyComponent
+```
+
 _Get features from web_
 
 ```bash
