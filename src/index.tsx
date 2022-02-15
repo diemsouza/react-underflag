@@ -1,11 +1,11 @@
-import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react'
-import {
-  IDataProvider,
-  Underflag,
-  JSONData,
-  isOn,
-  Feature as BaseFeature
-} from 'underflag'
+import React, {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState
+} from 'react'
+import { IDataProvider, Underflag, JSONData, Feature } from 'underflag'
 
 type UnderflagState = {
   underflag: Underflag
@@ -41,18 +41,14 @@ const useUnderflag = () => {
   return context
 }
 
-type Features = Array<string>
+type Keys = Array<string>
 
-interface Feature extends BaseFeature {
-  isOn: () => boolean
-}
-
-const useFeature = (features: Features): Array<Feature> => {
+const useFeature = (keys: Keys): Array<Feature> => {
   const { underflag } = useUnderflag()
   const [currentFlags, setCurrentFlags] = useState<Array<Feature>>([])
 
   useEffect(() => {
-    getFlags(underflag, features).then((res) => {
+    getFeatures(underflag, keys).then((res) => {
       setCurrentFlags(res as Array<Feature>)
     })
   }, [])
@@ -60,17 +56,10 @@ const useFeature = (features: Features): Array<Feature> => {
   return currentFlags
 }
 
-async function getFlags(underflag: Underflag, features: Features) {
-  return await underflag.getFeatures(features).then((res) =>
-    res.map((feature) =>
-      feature
-        ? {
-          ...feature,
-          isOn: () => isOn(feature)
-        }
-        : undefined
-    )
-  )
+async function getFeatures(underflag: Underflag, keys: Keys) {
+  return await underflag
+    .getFeatures(keys)
+    .then((res) => res.map((feature) => feature || undefined))
 }
 
 export { UnderflagProvider, useUnderflag, useFeature, UnderflagContext }

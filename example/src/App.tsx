@@ -1,13 +1,18 @@
 import React from 'react'
 import { UnderflagProvider } from 'react-underflag'
-import Features from './components/Features'
+import MyComponent from './components/MyComponent'
 
 const App = () => {
-  const features = { test_a: true, test_b: false, featureC: true }
+  const features = {
+    featureA: true,
+    featureB: false,
+    featureC: true,
+    featureD: false
+  }
 
   return (
-    <UnderflagProvider dataProvider={features} >
-      <Features />
+    <UnderflagProvider dataProvider={features}>
+      <MyComponent />
     </UnderflagProvider>
   )
 }

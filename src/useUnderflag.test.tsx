@@ -1,12 +1,12 @@
 import React from 'react'
 import { renderHook } from '@testing-library/react-hooks'
-import { UnderflagProvider, useFeature } from '.'
+import { UnderflagProvider, useUnderflag } from '.'
 
 type WrapperProps = {
   children: React.ReactNode
 }
 
-describe('useFeature', () => {
+describe('useUnderflag', () => {
   it('should return true for feature', async () => {
     const wrapper = ({ children }: WrapperProps) => (
       <UnderflagProvider dataProvider={{ feature: true }}>
@@ -14,15 +14,13 @@ describe('useFeature', () => {
       </UnderflagProvider>
     )
 
-    const { result, waitFor } = renderHook(() => useFeature(['feature']), {
+    const { result } = renderHook(() => useUnderflag(), {
       wrapper
     })
 
-    await waitFor(() => result.current.length > 0)
-
-    const [featureA] = result.current
-
-    expect(featureA.isOn()).toBe(true)
+    const { underflag } = result.current
+    const feature = await underflag.isOn('feature')
+    expect(feature).toBe(true)
   })
 
   it('should return false for feature', async () => {
@@ -35,30 +33,27 @@ describe('useFeature', () => {
         {children}
       </UnderflagProvider>
     )
-    const { result, waitFor } = renderHook(() => useFeature(['feature']), {
+    const { result } = renderHook(() => useUnderflag(), {
       wrapper
     })
 
-    await waitFor(() => result.current.length > 0)
-
-    const [featureA] = result.current
-
-    expect(featureA.isOn()).toBe(false)
+    const { underflag } = result.current
+    const feature = await underflag.isOn('feature')
+    expect(feature).toBe(false)
   })
 
-  it('should return undefined', async () => {
+  it('should return false when undefined', async () => {
     const wrapper = ({ children }: WrapperProps) => (
       <UnderflagProvider dataProvider={{}}>{children}</UnderflagProvider>
     )
 
-    const { result, waitFor } = renderHook(() => useFeature(['feature']), {
+    const { result } = renderHook(() => useUnderflag(), {
       wrapper
     })
 
-    await waitFor(() => result.current.length > 0)
-
-    const [feature] = result.current
-    expect(feature).toBeUndefined()
+    const { underflag } = result.current
+    const feature = await underflag.isOn('feature')
+    expect(feature).toBeFalsy()
   })
 
   it('should return true, false and undefined simultaneously', async () => {
@@ -68,18 +63,20 @@ describe('useFeature', () => {
       </UnderflagProvider>
     )
 
-    const { result, waitFor } = renderHook(
-      () => useFeature(['featureA', 'featureB', 'featureC']),
-      {
-        wrapper
-      }
-    )
+    const { result } = renderHook(() => useUnderflag(), {
+      wrapper
+    })
 
-    await waitFor(() => result.current.length === 3)
-
-    const [featureA, featureB, featureC] = result.current
-    expect(featureA?.isOn()).toBeTruthy()
-    expect(featureB?.isOn()).toBeFalsy()
+    const { underflag } = result.current
+    const [featureA, featureB, featureC] = await underflag.getFeatures([
+      'featureA',
+      'featureB',
+      'FeatureC'
+    ])
+    expect(featureA).toBeTruthy()
+    expect(featureA?.value).toBeTruthy()
+    expect(featureB).toBeTruthy()
+    expect(featureB?.value).toBeFalsy()
     expect(featureC).toBeUndefined()
   })
 })
