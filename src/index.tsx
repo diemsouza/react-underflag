@@ -1,5 +1,11 @@
-import React, { createContext, ReactNode, useContext } from 'react'
-import { IDataProvider, Underflag, JSONData } from 'underflag'
+import React, {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState
+} from 'react'
+import { IDataProvider, Underflag, JSONData, Feature } from 'underflag'
 
 type UnderflagState = {
   underflag: Underflag
@@ -35,4 +41,25 @@ const useUnderflag = () => {
   return context
 }
 
-export { UnderflagProvider, useUnderflag, UnderflagContext }
+type Keys = Array<string>
+
+const useFeature = (keys: Keys): Array<Feature> => {
+  const { underflag } = useUnderflag()
+  const [currentFlags, setCurrentFlags] = useState<Array<Feature>>([])
+
+  useEffect(() => {
+    getFeatures(underflag, keys).then((res) => {
+      setCurrentFlags(res as Array<Feature>)
+    })
+  }, [])
+
+  return currentFlags
+}
+
+async function getFeatures(underflag: Underflag, keys: Keys) {
+  return await underflag
+    .getFeatures(keys)
+    .then((res) => res.map((feature) => feature || undefined))
+}
+
+export { UnderflagProvider, useUnderflag, useFeature, UnderflagContext }
